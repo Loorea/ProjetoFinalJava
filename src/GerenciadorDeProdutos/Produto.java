@@ -1,14 +1,17 @@
 package GerenciadorDeProdutos;
 
 class Produto {
+
     private String nome;
     private Integer codigo;
     private Double peso;
+    private Double valor;
 
-    public Produto(String nome, Integer codigo, Double peso) {
+    public Produto(String nome, Integer codigo, Double peso, Double valor) {
         this.nome = nome;
         this.codigo = codigo;
         this.peso = peso;
+        this.valor = valor;
     }
 
     public String getNome() {
@@ -29,6 +32,10 @@ class Produto {
 
     public void setPeso(Double peso){
         this.peso = peso;
+    }
+
+    public Double getValor() {
+        return valor;
     }
 
     @Override
