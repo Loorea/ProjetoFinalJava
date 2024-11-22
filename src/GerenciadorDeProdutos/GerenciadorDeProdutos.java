@@ -8,6 +8,13 @@ class GerenciadorDeProdutos {
     private List<Produto> produtos = new ArrayList<>();
     private int codigoAtual = 1;
     private Scanner scanner = new Scanner(System.in);
+    private Estoque estoque; // MODIFICADO
+    
+    // MODIFICADO
+    // construtor que recebe o estoque
+    public GerenciadorDeProdutos(Estoque estoque) {
+        this.estoque = estoque;
+    }
 
     public void criar() {
         System.out.println("Digite o nome do produto:");
@@ -17,10 +24,17 @@ class GerenciadorDeProdutos {
         Double peso = scanner.nextDouble();
         scanner.nextLine();
 
-        Produto produto = new Produto(nome, codigoAtual, peso);
-        produtos.add(produto);
-        System.out.println("Produto criado com sucesso!");
-        codigoAtual++;
+        // MODIFICADO
+        // verifica se tem capacidade disponivel no estoque
+        if (estoque.getCapacidadeDisponivel() >= peso) {
+            Produto produto = new Produto(nome, codigoAtual, peso);
+            produtos.add(produto);
+            estoque.adicionarProduto(nome, peso.intValue());
+            System.out.println("Produto criado com sucesso!");
+            codigoAtual++;
+        } else {
+            System.out.println("Espaço insuficiente no estoque para adicionar este produto.");
+        }
     }
 
     public void listar() {
@@ -33,13 +47,12 @@ class GerenciadorDeProdutos {
             }
         }
     }
+    
     public void atualizar() {
-        Produto produtoEncontrado = null;
-
         System.out.println("Digite o código do produto que deseja atualizar:");
         int codigo = scanner.nextInt();
         scanner.nextLine();
-
+        Produto produtoEncontrado = null;
         for (Produto produto : produtos) {
             if (produto.getCodigo() == codigo) {
                 produtoEncontrado = produto;
@@ -50,7 +63,6 @@ class GerenciadorDeProdutos {
         if (produtoEncontrado != null) {
             System.out.println("Produto encontrado:");
             System.out.println(produtoEncontrado);
-
             System.out.println("Digite o novo nome do produto (ou pressione Enter para manter o mesmo):");
             String novoNome = scanner.nextLine();
             if (!novoNome.isEmpty()) {
@@ -60,11 +72,24 @@ class GerenciadorDeProdutos {
             System.out.println("Digite o novo peso do produto (ou -1 para manter o mesmo):");
             double novoPeso = scanner.nextDouble();
             scanner.nextLine();
+            
+            // MODIFICADO
             if (novoPeso > -1) {
-                produtoEncontrado.setPeso(novoPeso);
+                double pesoAtual = produtoEncontrado.getPeso();
+                double diferencaPeso = novoPeso - pesoAtual;
+                
+                // MODIFICADO
+                // ve se o estoque tem capacidade pro peso do produto
+                if (estoque.getCapacidadeDisponivel() >= diferencaPeso) {
+                    estoque.adicionarProduto(produtoEncontrado.getNome(), (int) diferencaPeso);
+                    produtoEncontrado.setPeso(novoPeso);
+                    System.out.println("Produto atualizado com sucesso!");
+                } else {
+                    System.out.println("Espaço insuficiente no estoque para atualizar o peso.");
+                }
+            } else {
+                System.out.println("Nenhuma alteração no peso.");
             }
-
-            System.out.println("Produto atualizado com sucesso!");
         } else {
             System.out.println("Produto com código " + codigo + " não encontrado.");
         }
