@@ -109,4 +109,8 @@ public class Estoque {
         return capacidade;
     }
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
 }
