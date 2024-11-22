@@ -84,8 +84,13 @@ public class Estoque {
                 double pesoAtual = produtoEncontrado.getPeso();
                 double diferencaPeso = novoPeso - pesoAtual;
 
-                produtoEncontrado.setPeso(novoPeso);
-                System.out.println("Produto atualizado com sucesso!");
+                if(diferencaPeso > 0) {
+                    produtoEncontrado.setPeso(novoPeso);
+                    System.out.println("Produto atualizado com sucesso!");
+                } else {
+                    System.out.println("Nenhuma alteração no peso.");
+                }
+
 
             } else {
 
