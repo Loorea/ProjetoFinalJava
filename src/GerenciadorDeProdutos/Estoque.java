@@ -19,7 +19,7 @@ public class Estoque {
     public void adicionarProduto() {
 
         System.out.println("Digite o nome do produto:");
-        String nome = scanner.nextLine();
+        String nome = scanner.next();
 
         System.out.println("Digite o peso do produto:");
         Double peso = scanner.nextDouble();
