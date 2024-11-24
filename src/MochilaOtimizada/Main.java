@@ -1,4 +1,4 @@
-package GerenciadorDeProdutos;
+package MochilaOtimizada;
 
 import java.util.List;
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class Main {
         double capacidadeMaxima = scanner.nextDouble();
         scanner.nextLine();
 
-        Estoque estoque = new Estoque(capacidadeMaxima);
+        Mochila mochila = new Mochila(capacidadeMaxima);
         int opcao;
 
         do {
@@ -28,17 +28,17 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    estoque.adicionarProduto();
+                    mochila.adicionarProduto();
                     break;
                 case 2:
-                    estoque.listarProdutos();
+                    mochila.listarProdutos();
                     break;
                 case 3:
-                    estoque.atualizarProdutos();
+                    mochila.atualizarProdutos();
                     break;
                 case 4:
                     AlgoritmoMochila algoritmo = new AlgoritmoMochila();
-                    List<Produto> melhorCombinacao = algoritmo.resolver(estoque);
+                    List<Produto> melhorCombinacao = algoritmo.resolver(mochila);
                     if (melhorCombinacao.isEmpty()) {
                         System.out.println("Nenhuma combinação de produtos encontrada dentro da capacidade.");
                     } else {

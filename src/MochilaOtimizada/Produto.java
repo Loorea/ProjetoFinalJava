@@ -1,4 +1,4 @@
-package GerenciadorDeProdutos;
+package MochilaOtimizada;
 
 class Produto {
 
@@ -40,6 +40,8 @@ class Produto {
 
     @Override
     public String toString() {
-        return "Código: " + codigo + "\nNome: " + nome + "\nPeso: " + peso + " kg\n";
+        return "Código: " + codigo + "\nNome: " + nome + "\nPeso: " + peso + " kg\n" + "Valor: " + valor + "\n";
     }
+
+
 }

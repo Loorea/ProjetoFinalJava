@@ -1,4 +1,4 @@
-package GerenciadorDeProdutos;
+package MochilaOtimizada;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,18 +8,20 @@ class EstadoMochila {
     private double pesoTotal;
     private double valorTotal;
 
-    // Construtor para um estado vazio
+
     public EstadoMochila() {
         this.produtosSelecionados = new ArrayList<>();
         this.pesoTotal = 0;
         this.valorTotal = 0;
     }
 
-    // Construtor para um estado baseado em uma lista de produtos existente
+
     public EstadoMochila(List<Produto> produtosSelecionados) {
         this.produtosSelecionados = new ArrayList<>(produtosSelecionados);
-        this.pesoTotal = produtosSelecionados.stream().mapToDouble(Produto::getPeso).sum();
-        this.valorTotal = produtosSelecionados.stream().mapToDouble(Produto::getValor).sum();
+        for (Produto produto: produtosSelecionados) {
+            this.pesoTotal += produto.getPeso();
+            this.valorTotal += produto.getValor();
+        }
     }
 
     public void adicionarProduto(Produto produto) {
@@ -38,6 +40,10 @@ class EstadoMochila {
 
     public double getValorTotal() {
         return valorTotal;
+    }
+
+    public double heuristica(double capacidade) {
+        return capacidade - pesoTotal;
     }
 
     @Override

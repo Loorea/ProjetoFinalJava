@@ -1,10 +1,10 @@
-package GerenciadorDeProdutos;
+package MochilaOtimizada;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Estoque {
+public class Mochila {
 
     private List<Produto> produtos = new ArrayList<>();
     private int codigoAtual = 1;
@@ -12,7 +12,7 @@ public class Estoque {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public Estoque(double capacidade) {
+    public Mochila(double capacidade) {
         this.capacidade = capacidade;
     }
 
@@ -39,7 +39,7 @@ public class Estoque {
         if (produtos.isEmpty()) {
             System.out.println("Nenhum produto cadastrado.");
         } else {
-            System.out.println("Lista de Produtos:");
+            System.out.println("Lista de Produtos: \n");
             for (Produto produto : produtos) {
                 System.out.println(produto);
             }
@@ -47,6 +47,8 @@ public class Estoque {
     }
 
     public void atualizarProdutos() {
+
+        listarProdutos();
 
         System.out.println("Digite o código do produto que deseja atualizar:");
         int codigo = scanner.nextInt();
